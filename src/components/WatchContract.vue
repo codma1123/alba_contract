@@ -2,7 +2,7 @@
   <v-container>
     <v-row class="text-center">
       <v-col cols="12">
-        <h1>계약서 조회 및 발송</h1>
+        <h1>계약서 조회 및 전송</h1>
         <v-btn
           @click="goHome"
           position="fixed"
@@ -18,7 +18,7 @@
           v-model="dialog">
           <v-card rounded="sm">
             <v-card-title>
-              계약서 발송
+              계약서 전송
             </v-card-title>
           </v-card>          
           <v-carousel             
@@ -47,7 +47,6 @@
                   <v-list-item>
                     <v-row>
                       <v-col cols="4">급여 :</v-col>
-    
                       <v-col cols="6">{{ currentListItem.pay }} ₩ </v-col>
                     </v-row> 
                   </v-list-item>           
@@ -59,7 +58,7 @@
                   </v-list-item>         
                   <v-divider></v-divider>                   
                   <v-card-subtitle class="mt-4">
-                    상기 내용으로 계약서를 발송하시겠습니까?
+                    상기 내용으로 계약서를 전송하시겠습니까?
                   </v-card-subtitle>
                 </v-list>
                 <v-spacer></v-spacer>            
@@ -82,14 +81,20 @@
             <v-carousel-item>
               <v-card rounded="sm" width="320" height="280">
                 <v-row>
-                  <v-col cols=12>
-                    <v-text-field class="ml-5 mr-5 mt-5"
-                      label="발송 전화번호"
-                      clearable
-                      variant="outlined"
-                    >
-                    </v-text-field>
-                  </v-col>
+                  <v-col cols="12" class="ml-15">
+                    <qrcode-vue 
+                      @click="router.push(`/contract/${currentListItem.id}`)"
+                      :value="value" :size="200"/>
+                  </v-col>                                 
+                </v-row>
+                <v-row class="d-flex justify-center">
+                  <v-btn                     
+                    variant="plain"
+                    class="mt-2"
+                    @click="dialog = false"
+                  >
+                    확인
+                  </v-btn>
                 </v-row>
               </v-card>
             </v-carousel-item>
@@ -104,45 +109,63 @@
       <v-col cols="3" md="3"> <span> 근로장소 </span> </v-col>
     </v-row>
     <v-divider></v-divider>
-    <v-list lines="two" class="mt-1">
-      <v-list-item
-        @click="openDialog(i)"
-        v-for="(contract, i) in contractList"
-        :key="i"
+    <v-list 
+      v-if="listVaild !== 0"
+      lines="two" class="mt-1">
+      <div
+         v-for="(contract, i) in localContractList"
+        :key="i"        
       >
-        <v-col cols="3" md="3">
-          <span> {{ contract.createDate }} </span>
-        </v-col>
-        <v-col cols="3" md="3">
-          <span> {{ contract.pay }} ₩ </span>
-        </v-col>
-        <v-col cols="4" md="4">
-          <span> {{ contract.start }} ~ {{ contract.end }} </span>
-        </v-col>
-        <v-col cols="2" md="2">
-          <span> {{ contract.company }}</span>
-        </v-col>
-      </v-list-item>
+        <v-list-item @click="openDialog(i)">
+          <v-col cols="3" md="3">
+            <span> {{ contract.createDate }} </span>
+          </v-col>
+          <v-col cols="3" md="3">
+            <span> {{ contract.pay }} ₩ </span>
+          </v-col>
+          <v-col cols="4" md="4">
+            <span> {{ contract.start }} ~ {{ contract.end }} </span>
+          </v-col>
+          <v-col cols="3" md="3">
+            <span> {{ contract.company }}</span>
+          </v-col>     
+        </v-list-item>
+        <v-btn 
+          @click="deleteItem"
+          position="absolute" icon elevation="0" size="x-small" right top fab>
+          <v-icon size="15">mdi-close</v-icon>
+        </v-btn>
+      </div>
     </v-list>
     <v-divider></v-divider>
   </v-container>
 </template>
 
 <script>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useContractStore } from "../stores/contract";
+// import QRCode from 'qrcode.js'
+import QrcodeVue from 'qrcode.vue'
+
 
 export default {
-  name: "MenuTwo",
+  name: "WatchContract",
+  components: {
+    QrcodeVue
+  },
   setup() {
     const contractStore = useContractStore();
     const router = useRouter();
     const currentListItem = ref({});
     const dialog = ref(false);
     const carousel = ref(0)
+    const qrURL = ref('')
 
     const contractList = computed(() => contractStore.getContracts);
+    const localContractList = computed(() => [JSON.parse(window.localStorage.getItem('contract'))])    
+
+    const listVaild = computed(() => window.localStorage.length)
 
     function goHome() {
       router.push("/bc");
@@ -150,18 +173,34 @@ export default {
 
     function openDialog(listIndex) {
       carousel.value = 0
-      currentListItem.value = contractList.value[listIndex];
+      currentListItem.value = localContractList.value[listIndex];
       dialog.value = true;
+      qrURL.value = `/contract/${currentListItem.value.id}`
     }
 
+    function deleteItem() {
+      window.localStorage.removeItem('contract')
+    }
+
+
+    onMounted(() => {
+      console.log([JSON.parse(window.localStorage.getItem('contract'))])
+    })
+    
     return {
       contractList,
+      localContractList,
       router,
       goHome,
       openDialog,
       currentListItem,
       dialog,
-      carousel
+      carousel,
+      qrURL,
+
+      deleteItem,
+      listVaild
+
     };
   },
 };

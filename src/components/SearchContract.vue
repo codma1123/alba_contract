@@ -49,7 +49,7 @@ import { useContractStore } from "../stores/contract";
 import { computed, ref } from 'vue'
 
 export default {
-  name: "MenuThree",
+  name: "SearchContract",
   setup() {
     const router = useRouter()
     const contractStore = useContractStore();
@@ -63,8 +63,7 @@ export default {
     }
 
     function searchContract(payload) {      
-      resMessage.value = contractStore.findContract(payload)
-      
+      resMessage.value = contractStore.findContract(payload)      
     }
 
     return { goHome, searchContract, search, resMessage, loaded }

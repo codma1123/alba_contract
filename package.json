@@ -13,6 +13,8 @@
     "@mdi/font": "5.9.55",
     "axios": "^0.27.2",
     "pinia": "^2.0.14",
+    "qrcode.js": "0.0.1",
+    "qrcode.vue": "^3.3.3",
     "roboto-fontface": "*",
     "vue": "^3.2.36",
     "vue-router": "^4.0.15",

@@ -103,8 +103,7 @@
             <v-select
               variant="outlined"
               label="시작 시간"
-              required
-              :rules="timeRules"
+              required              
               :items="startTime"
               v-model="selectedStartTime"
             ></v-select>
@@ -114,6 +113,7 @@
               variant="outlined"
               label="종료 시간"
               required
+              :rules="timeRules"
               :items="endTime"
               v-model="selectedEndTime"
             ></v-select>
@@ -145,7 +145,7 @@ import { useRouter } from "vue-router";
 import { useContractStore } from "../stores/contract";
 
 export default {
-  name: "MenuOne",
+  name: "CreateContract",
   setup() {
     const company = ref("");
     const pay = ref();
@@ -180,7 +180,7 @@ export default {
     ];
 
     const timeRules = [
-      value => !Number(value.slice(0, 2)) < Number(selectedEndTime.value.slice(0, 2)) || '시작시간이 종료시간보다 짧을 수 없습니다.'
+      value => !Number(value.slice(0, 2)) < Number(selectedEndTime.value.slice(0, 2)) || '종료시간이 시작시간보다 짧을 수 없습니다.'
     ]
 
     const companyRules = [(value) => !!value || "필수 입력 사항입니다."];
@@ -215,6 +215,18 @@ export default {
           tele: tele.value,
           owner: owner.value
         });
+
+        contractStore.createContract({
+          company: company.value,
+          pay: pay.value,
+          time: time.value,
+          textArea: textArea.value,
+          start: selectedStartTime.value,
+          end: selectedEndTime.value,
+          date : date.value,
+          tele: tele.value,
+          owner: owner.value
+        })
 
         router.push("/bc");
       }

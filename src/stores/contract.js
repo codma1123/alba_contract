@@ -1,4 +1,10 @@
 import { defineStore } from "pinia";
+import axios from 'axios'
+const HEADER = {
+  headers: {
+    'Content-Type': 'text/plain;charset=utf-8'
+  }
+}
 
 export const useContractStore = defineStore({
   id: "contract",
@@ -6,7 +12,10 @@ export const useContractStore = defineStore({
     contracts: [],
     contracted: [],
     id: 0,
-    resLoaded: false
+    resLoaded: false,
+    initFlag: false,
+    tempLocalStorage: [],
+    user: {}
   }),
   getters: {
     getContracts() {
@@ -14,6 +23,9 @@ export const useContractStore = defineStore({
     },    
     getResLoaded() {
       return this.resLoaded;
+    },
+    getLocalContracts() {
+      return Object.values(window.localStorage)
     }
   },
   actions: {
@@ -23,16 +35,28 @@ export const useContractStore = defineStore({
         createDate: getToday(),
         id: this.id++
       });
+
+      const strPayload = JSON.stringify({
+        ...payload,
+        createDate: getToday(),
+        id: this.id++
+      })
+
+      window.localStorage.setItem('contract', strPayload)      
     },
 
-    initState() {
+    loadContract() {
+      console.log()
+    },
+
+    initState() {      
       this.contracted = Array.from({length: 5}, (_, i) => ({
         id: i,
         text: `계약내용${i}`
       }))
-      console.log(this.contracted)
+      
     },
-
+    
     findContract(payload) {      
       this.resLoaded = true      
       const res = this.contracted.find(contract => contract.id == payload)
@@ -41,6 +65,17 @@ export const useContractStore = defineStore({
         id: 404,
         text: '계약내용을 찾을 수 없음.'
       }      
+    },
+    
+
+    async homeContract() {
+      const res = await axios.get('/api', HEADER)
+      console.log('res', res.data)
+    },
+
+    async createContract(payload) {
+      console.log(payload)
+      // const res = await axios.post('/api', )
     }
   },
 });

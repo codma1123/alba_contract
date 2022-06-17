@@ -7,15 +7,7 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: () => import("../components/BcHome.vue"),
-    },
-    {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
-    },
+    },    
     {
       path: "/bc",
       name: "bc",
@@ -24,22 +16,32 @@ const router = createRouter({
     {
       path: "/bc/menu1",
       name: "menu1",
-      component: () => import("../components/MenuOne.vue"),
+      component: () => import("../components/CreateContract.vue"),
     },
     {
       path: "/bc/menu2",
       name: "menu2",
-      component: () => import("../components/MenuTwo.vue"),
+      component: () => import("../components/WatchContract.vue"),
     },
     {
       path: "/bc/menu3",
       name: "menu3",
-      component: () => import("../components/MenuThree.vue"),
+      component: () => import("../components/SearchContract.vue"),
+    },    
+    {
+      path: "/user",
+      name: "user",
+      component: () => import("../views/UserView.vue")
     },
     {
-      path: "/bc/user",
-      name: "user",
-      component: () => import("../components/UserComponent.vue")
+      path: "/contract/:id",
+      name: "contract",
+      component: () => import("../views/ContractView.vue")
+    },
+    {
+      path: "/user/info",
+      name: "info",
+      component: () => import("../components/UserInfo.vue")
     }
   ],
 });

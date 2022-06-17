@@ -2,7 +2,7 @@
   <v-container class="text-center">
     <v-row>
       <v-col cols="12">
-        <h1>메뉴 선택</h1>
+        <h1>고용주 메뉴 선택</h1>
       </v-col>
     </v-row>
     <v-divider></v-divider>
@@ -60,7 +60,6 @@ export default {
     });
 
     const contractStore = useContractStore()
-
     const menus = [
       {
         title: "MENU1",
@@ -76,8 +75,9 @@ export default {
       },
     ];
 
-    onMounted(() => {
-      contractStore.initState()
+    onMounted(() => {        
+      contractStore.initState()        
+      contractStore.homeContract()
     })
 
     return { testVar, menus };
