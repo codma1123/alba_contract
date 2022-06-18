@@ -133,7 +133,8 @@
     <v-spacer></v-spacer>
     <v-divider></v-divider>
 
-    <v-btn variant="outlined" block right class="mt-5 mr-5" @click="submit">
+    <v-btn 
+      color="blue" variant="outlined" block right class="mt-5 mr-5" @click="submit">
       계약서 생성
     </v-btn>
   </v-container>
@@ -202,9 +203,9 @@ export default {
       router.push("/bc");
     }
 
-    function submit() {
+    async function submit() {
       if (validate) {
-        contractStore.addContract({
+        await contractStore.addContract({
           company: company.value,
           pay: pay.value,
           time: time.value,
@@ -215,19 +216,6 @@ export default {
           tele: tele.value,
           owner: owner.value
         });
-
-        contractStore.createContract({
-          company: company.value,
-          pay: pay.value,
-          time: time.value,
-          textArea: textArea.value,
-          start: selectedStartTime.value,
-          end: selectedEndTime.value,
-          date : date.value,
-          tele: tele.value,
-          owner: owner.value
-        })
-
         router.push("/bc");
       }
     }
@@ -236,7 +224,7 @@ export default {
       return true;
     }
 
-    onMounted(() => {});
+    onMounted(() => contractStore.initState());
 
     return {
       company,

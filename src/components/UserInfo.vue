@@ -89,12 +89,14 @@ export default {
     })
     const contractStore = useContractStore()
 
-    function submit() {
+    async function submit() {
       const userInfoTemp = {
         name: user.value.name,
         tele: user.value.tele,
         age: user.value.age
       }
+
+      await contractStore.addWorker(userInfoTemp)
 
       const userString = JSON.stringify(userInfoTemp)
       window.localStorage.setItem('user', userString)

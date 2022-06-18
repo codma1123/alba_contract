@@ -46,7 +46,7 @@
 <script>
 import { useRouter } from 'vue-router';
 import { useContractStore } from "../stores/contract";
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 export default {
   name: "SearchContract",
@@ -65,6 +65,8 @@ export default {
     function searchContract(payload) {      
       resMessage.value = contractStore.findContract(payload)      
     }
+
+    onMounted(() => contractStore.searchContract())
 
     return { goHome, searchContract, search, resMessage, loaded }
   },

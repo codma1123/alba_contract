@@ -18,11 +18,11 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "src"),
     },
-  },
+  },  
   server: {
-    proxy: {
-      '/api': 'http://localhost:3001'
-    }
+    // proxy: {
+    //   '/' : 'http://127.0.0.1/7545'
+    // }
   }
   /* remove the need to specify .vue files https://vitejs.dev/config/#resolve-extensions
   resolve: {

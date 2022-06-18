@@ -113,7 +113,7 @@
       v-if="listVaild !== 0"
       lines="two" class="mt-1">
       <div
-         v-for="(contract, i) in localContractList"
+         v-for="(contract, i) in contractList"
         :key="i"        
       >
         <v-list-item @click="openDialog(i)">
@@ -131,7 +131,7 @@
           </v-col>     
         </v-list-item>
         <v-btn 
-          @click="deleteItem"
+          @click="deleteItem(i)"
           position="absolute" icon elevation="0" size="x-small" right top fab>
           <v-icon size="15">mdi-close</v-icon>
         </v-btn>
@@ -162,7 +162,7 @@ export default {
     const carousel = ref(0)
     const qrURL = ref('')
 
-    const contractList = computed(() => contractStore.getContracts);
+    const contractList = computed(() => contractStore.contractList);
     const localContractList = computed(() => [JSON.parse(window.localStorage.getItem('contract'))])    
 
     const listVaild = computed(() => window.localStorage.length)
@@ -178,8 +178,9 @@ export default {
       qrURL.value = `/contract/${currentListItem.value.id}`
     }
 
-    function deleteItem() {
-      window.localStorage.removeItem('contract')
+    function deleteItem(index) {
+      window.localStorage.removeItem('contract')      
+      contractStore.deleteContract(index+1)
     }
 
 

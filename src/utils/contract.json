@@ -1,0 +1,263 @@
+[
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [],
+		"name": "Employcontract",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_employer",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_phone",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_employPay",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_date",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_time",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_location",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_memo",
+				"type": "string"
+			}
+		],
+		"name": "addEmploy",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_worker",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_wPhone",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_age",
+				"type": "uint256"
+			}
+		],
+		"name": "addWorker",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "albaWorker",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "employList",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "empAccount",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "employerName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "employPhone",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "pay",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "date",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "etime",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "location",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "memo",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "employcontract",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "location",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "date",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "time",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "Pay",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "memo",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "albaName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "empphone",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "albaPhoe",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "empAddr",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "albaaddr",
+				"type": "address"
+			},
+			{
+				"internalType": "bool",
+				"name": "employORNotyet",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "employer",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "workerList",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "workerAccount",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "workerName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "wPhone",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "age",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
